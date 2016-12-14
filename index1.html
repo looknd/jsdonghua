@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS速度动画</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #div1{
+            width: 200px;
+            height: 100px;
+            position: relative;
+            left: -200px;
+            top:0;
+            background-color: aqua;
+        }
+        #div1 span{
+            width: 20px;
+            height: 50px;
+            background-color: chocolate;
+            left: 200px;
+            top:25px;
+            position: absolute;
+        }
+    </style>
+    <script>
+        //通过setInterval实现
+//        一、offsetLeft 返回的是数字，而 style.left 返回的是字符串，除了数字外还带有单位：px。
+//        二、offsetLeft 只读，而 style.left 可读写。
+
+        window.onload=function () {
+            var oDiv=document.getElementById("div1");
+            oDiv.onmouseover=function () {
+                startMove()
+            }
+            oDiv.onmouseout=function () {
+                endMove()
+            }
+        }
+        var inter
+        function startMove() {
+            clearInterval(inter)
+            var oDiv=document.getElementById("div1");
+            inter=setInterval(function () {
+                if(oDiv.offsetLeft==0){
+                    clearInterval(inter)
+                }else{
+                    oDiv.style.left=oDiv.offsetLeft+10+"px"
+                }
+            },30)
+        }
+
+        function endMove() {
+            clearInterval(inter)
+            var oDiv=document.getElementById("div1");
+            inter=setInterval(function () {
+                if(oDiv.offsetLeft==-200){
+                    clearInterval(inter)
+                }else{
+                    oDiv.style.left=oDiv.offsetLeft-10+"px"
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <span>分享</span>
+    </div>
+</body>
+</html>
