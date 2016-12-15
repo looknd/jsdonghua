@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JS缓冲动画</title>
+    <title>JS速度动画</title>
     <style>
         *{
             padding: 0;
@@ -27,8 +27,8 @@
     </style>
     <script>
         //通过setInterval实现
-//        一、offsetLeft 返回的是数字，而 style.left 返回的是字符串，除了数字外还带有单位：px。
-//        二、offsetLeft 只读，而 style.left 可读写。
+        //        一、offsetLeft 返回的是数字，而 style.left 返回的是字符串，除了数字外还带有单位：px。
+        //        二、offsetLeft 只读，而 style.left 可读写。
 
         window.onload=function () {
             var oDiv=document.getElementById("div1");
@@ -47,8 +47,11 @@
             clearInterval(inter)
             var oDiv=document.getElementById("div1");
             inter=setInterval(function () {
-                speed=(iTarget-oDiv.offsetLeft)/20;
-                speed=speed>0 ? Math.ceil(speed) : Math.floor(speed)
+                if(oDiv.offsetLeft > iTarget){
+                    speed=-10
+                }else{
+                    speed=10
+                }
                 if(oDiv.offsetLeft==iTarget){
                     clearInterval(inter)
                 }else{
@@ -56,11 +59,12 @@
                 }
             },30)
         }
+        //        }
     </script>
 </head>
 <body>
-    <div id="div1">
-        <span>分享</span>
-    </div>
+<div id="div1">
+    <span>分享</span>
+</div>
 </body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js透明度动画</title>
+    <style>
+        #div1{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            filter: alpha(opacity:30); /*IE*/
+            opacity: 0.3;   /*其他浏览器*/
+        }
+    </style>
+    <script>
+        window.onload=function () {
+            var oDiv=document.getElementById("div1");
+            oDiv.onmouseover=function () {
+                divMove(100)
+            }
+            oDiv.onmouseout=function () {
+                divMove(30)
+            }
+        }
+
+        var iterVal=null,
+                alpha=30;
+        //鼠标移入移除时div的透明度的改变
+        function divMove(tri) {
+            var oDiv=document.getElementById("div1");
+            clearInterval(iterVal);
+            iterVal=setInterval(function () {
+                var speed=0;
+                if(alpha>tri){
+                    speed=-10
+                }else{
+                    speed=10
+                }
+                if(alpha==tri){
+                    clearInterval(iterVal);
+                }else{
+                    alpha+=speed;
+                    oDiv.style.filter='alpha(opacity:'+alpha+')';
+                    oDiv.style.opacity=alpha/100;
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+    </div>
+</body>
+</html>
